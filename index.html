@@ -6,24 +6,22 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>HandlebarsJS-intro</title>
+
+	<script type="text/x-template" class="userTemplate">
+		{{#each users}}
+		<tr>
+		  <td>{{username}}</td>
+		  <td>{{firstName}}</td>
+		  <td>{{lastName}}</td>
+		  <td>{{email}}</td>
+		</tr>
+		{{/each}}
+	</script>
 </head>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.7/handlebars.min.js"></script>
 
 <body>
-	<header>
-		<script type="text/x-template" class="userTemplate">
-			{{#each users}}
-		    <tr>
-		      <td>{{username}}</td>
-		      <td>{{firstName}}</td>
-		      <td>{{lastName}}</td>
-		      <td>{{email}}</td>
-		    </tr>
-			{{/each}}
-		</script>
-	</header>
-
 	<table>
 		<tr>
 			<th>Username</th>
