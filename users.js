@@ -1,9 +1,13 @@
 document.addEventListener('DOMContentLoaded', function () {
+
+	// ==================== USER DATA TEMPLATE DATA ==================== //
+
 	// get a reference to the template script tag
-	var templateSource = document.querySelector(".userTemplate").innerHTML;
+	var userDataTemplateSource = document.querySelector(".userTemplate").innerHTML;
 
 	// compile the template
-	var userTemplate = Handlebars.compile(templateSource);
+	var userTemplate = Handlebars.compile(userDataTemplateSource);
+
 
 	// pass the data into the template & get the HTML back
 	var userData = {
@@ -22,4 +26,15 @@ document.addEventListener('DOMContentLoaded', function () {
 
 	// put the resulting HTML into the target elements innerHTML
 	userDataElem.innerHTML = userDataHTML;
+
+
+	// ==================== ERROR MESSAGE TEMPLATE DATA ==================== //
+
+	let message = "Hello World!";
+	var messageTemplateSource = this.documentElement.querySelector(".messageTemplate").innerHTML;
+	var messageTemplate = Handlebars.compile((messageTemplateSource));
+	var messageHTML = messageTemplate({ message: message });
+
+	var containerElement = document.querySelector(".container");
+	containerElement.innerHTML = messageHTML;
 });

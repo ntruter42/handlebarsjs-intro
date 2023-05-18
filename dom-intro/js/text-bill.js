@@ -1,3 +1,7 @@
+// TEMPLATE SETUP
+var templateSource = document.querySelector(".totalTemplate").innerHTML;
+var totalTextTemplate = Handlebars.compile(templateSource);
+
 // INPUT ELEMENTS
 const textString = document.querySelector("#text-string");
 const textButton = document.querySelector("#text-button");
@@ -68,16 +72,15 @@ function textButtonClicked() {
 		textTotal.classList.add("warning");
 	}
 
-	textCallTotal.innerHTML = "R" + callTextTotal.toFixed(2);
-	textSmsTotal.innerHTML = "R" + smsTextTotal.toFixed(2);
-	textTotal.innerHTML = "R" + total.toFixed(2);
+	textCallTotal.innerHTML = "R" + totalTextTemplate({ textCallTotal: callTextTotal.toFixed(2) });
+	textSmsTotal.innerHTML = "R" + totalTextTemplate({ textSmsTotal: smsTextTotal.toFixed(2) });
+	textTotal.innerHTML = "R" + totalTextTemplate({ textTotal: total.toFixed(2) });
 	textString.focus();
 
 	if (message.type !== null) {
 		message.widget = "text-message";
 		displayMessage(message);
 	}
-	updateTotals();
 }
 textButton.addEventListener('click', textButtonClicked);
 
@@ -94,6 +97,5 @@ function resetTextTotals() {
 	message.text = "Totals have been reset.";
 	message.widget = "text-message";
 	displayMessage(message);
-	updateTotals();
 }
 textReset.addEventListener('click', resetTextTotals);

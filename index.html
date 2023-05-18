@@ -6,9 +6,10 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>HandlebarsJS-intro</title>
+	<link rel="stylesheet" href="style.css">
 
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.7/handlebars.min.js"></script>
-	
+
 	<script type="text/x-template" class="userTemplate">
 		{{#each users}}
 		<tr>
@@ -19,12 +20,19 @@
 		</tr>
 		{{/each}}
 	</script>
-	<script type="text/x-template" class="userTemplate">
-			
-		</script>
+	<script type="text/x-template" class="messageTemplate">
+			<div class="message-box red-box">
+				<span class="message-content">
+					{{message}}
+				</span>
+			</div>
+	</script>
 </head>
 
 <body>
+	<div class="container">
+
+	</div>
 	<table>
 		<tr>
 			<th>Username</th>
@@ -38,6 +46,6 @@
 	</table>
 </body>
 
-<script src="js/users.js" charset="utf-8"></script>
+<script src="users.js" charset="utf-8"></script>
 
 </html>

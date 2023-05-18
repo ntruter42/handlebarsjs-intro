@@ -1,3 +1,7 @@
+// TEMPLATE SETUP
+var templateSource = document.querySelector(".totalTemplate").innerHTML;
+var totalTextTemplate = Handlebars.compile(templateSource);
+
 // INPUT ELEMENTS
 const radioButton = document.querySelector("#radio-button");
 const radioReset = document.querySelector("#radio-reset");
@@ -28,9 +32,9 @@ function radioButtonClicked() {
 			radioTotal.classList.add("warning");
 		}
 
-		radioCallTotal.innerHTML = "R" + callRadioTotal.toFixed(2);
-		radioSmsTotal.innerHTML = "R" + smsRadioTotal.toFixed(2);
-		radioTotal.innerHTML = "R" + total.toFixed(2);
+		radioCallTotal.innerHTML = "R" + totalTextTemplate({ radioCallTotal: callRadioTotal.toFixed(2) });
+		radioSmsTotal.innerHTML = "R" + totalTextTemplate({ radioSmsTotal: smsRadioTotal.toFixed(2) });
+		radioTotal.innerHTML = "R" + totalTextTemplate({ radioTotal: total.toFixed(2) });
 	} else {
 		message.type = "error";
 		message.text = "Select a bill type.";
