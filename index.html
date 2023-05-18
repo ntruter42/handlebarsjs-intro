@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>HandlebarsJS-intro</title>
+</head>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.7/handlebars.min.js"></script>
+
+<body>
+	<header>
+		<script type="text/x-template" class="userTemplate">
+		    <tr>
+		      <td>{{username}}</td>
+		      <td>{{firstName}}</td>
+		      <td>{{lastName}}</td>
+		      <td>{{email}}</td>
+		    </tr>
+		</script>
+	</header>
+
+	<table>
+		<tr>
+			<th>Username</th>
+			<th>First name</th>
+			<th>Last name</th>
+			<th>Email</th>
+		</tr>
+		<tbody class="userData">
+
+		</tbody>
+	</table>
+</body>
+
+<script src="js/users.js" charset="utf-8"></script>
+
+</html>
