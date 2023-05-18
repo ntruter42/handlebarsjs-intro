@@ -10,23 +10,25 @@
 	<link rel="stylesheet" href="css/simple-grid.css">
 	<link rel="stylesheet" href="css/styles.css">
 
+	<!-- HANDLEBARSJS TEMPLATE -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.7/handlebars.min.js"></script>
+
 	<script type="text/x-template" class="totalTemplate">
-			{{#each totals}}
-			<h5 class="col-12-sm">Totals</h5>
-					<div class="col-12-sm">
-						<span class="col-3-sm col-4">Call total:</span>
-						<span class="col-3-sm bold" id="{{bill}}-call-total">R{{callTotal}}</span>
-					</div>
-					<div class="col-12-sm">
-						<span class="col-3-sm col-4">SMS total:</span>
-						<span class="col-3-sm bold" id="{{bill}}-sms-total">R{{smsTotal}}</span>
-					</div>
-					<div class="col-12-sm">
-						<span class="col-3-sm col-5">Total amount:</span>
-						<span class="big" id="{{bill}}-total">R{{overallTotal}}</span>
-					</div>
-			{{/each}}
-		</script>
+		<h5 class="col-12-sm">Totals</h5>
+		<div class="col-12-sm">
+			<span class="col-3-sm col-4">Call total:</span>
+			<span class="col-3-sm bold" id="{{bill}}-call-total">R{{callTotal}}</span>
+		</div>
+		<div class="col-12-sm">
+			<span class="col-3-sm col-4">SMS total:</span>
+			<span class="col-3-sm bold" id="{{bill}}-sms-total">R{{smsTotal}}</span>
+		</div>
+		<div class="col-12-sm">
+			<span class="col-3-sm col-5">Total amount:</span>
+			<span class="big" id="{{bill}}-total">R{{overallTotal}}</span>
+		</div>
+	</script>
+
 </head>
 
 <body>
@@ -155,7 +157,7 @@
 					<button class="col-3-sm reset-button" id="text-reset" type="reset" name="button">Reset</button>
 
 					<!-- output elements -->
-					<div class="total-output">
+					<div class="total-text-output">
 					</div>
 
 					<!-- messages -->
@@ -213,7 +215,7 @@
 					</div>
 
 					<!-- output elements -->
-					<div class="total-output">
+					<div class="total-radio-output">
 					</div>
 
 					<!-- messages -->
@@ -317,20 +319,19 @@
 			</div>
 		</div>
 	</div>
-
+	
 	<!-- GENERAL FUNCTIONS -->
 	<script src="js/messages.js" charset="utf-8"></script>
 	<script src="js/advanced.js" charset="utf-8"></script>
-
+	
 	<!-- WIDGET FUNCTIONS -->
 	<script src="js/calculate-bill.js" charset="utf-8"></script>
 	<script src="js/text-bill.js" charset="utf-8"></script>
 	<script src="js/radio-bill.js" charset="utf-8"></script>
 	<script src="js/settings-bill.js" charset="utf-8"></script>
-
+	
 	<!-- TEMPLATE DATA -->
 	<script src="js/totals.js" charset="utf-8"></script>
-
 </body>
 
 </html>

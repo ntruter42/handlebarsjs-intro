@@ -77,6 +77,7 @@ function textButtonClicked() {
 		message.widget = "text-message";
 		displayMessage(message);
 	}
+	updateTotals();
 }
 textButton.addEventListener('click', textButtonClicked);
 
@@ -93,5 +94,6 @@ function resetTextTotals() {
 	message.text = "Totals have been reset.";
 	message.widget = "text-message";
 	displayMessage(message);
+	updateTotals();
 }
 textReset.addEventListener('click', resetTextTotals);

@@ -38,6 +38,7 @@ function radioButtonClicked() {
 
 	message.widget = "radio-message";
 	displayMessage(message);
+	updateTotals();
 }
 radioButton.addEventListener('click', radioButtonClicked);
 
@@ -53,5 +54,6 @@ function resetRadioTotals() {
 	message.text = "Totals have been reset.";
 	message.widget = "radio-message";
 	displayMessage(message);
+	updateTotals();
 }
 radioReset.addEventListener('click', resetRadioTotals);
