@@ -2,15 +2,25 @@
 var templateSource = document.querySelector(".totalTemplate").innerHTML;
 var totalTextTemplate = Handlebars.compile(templateSource);
 
+var textTotalContainer = document.querySelector(".text-total-container");
+textTotalContainer.innerHTML = totalTextTemplate({
+	textCallBill: "text-call-total",
+	textSmsBill: "text-sms-total",
+	textTotalBill: "text-total",
+	textCallTotal: '0.00',
+	textSmsTotal: '0.00',
+	textTotal: '0.00'
+});
+
 // INPUT ELEMENTS
 const textString = document.querySelector("#text-string");
 const textButton = document.querySelector("#text-button");
 const textReset = document.querySelector("#text-reset");
 
 // OUTPUT ELEMENTS
-const textCallTotal = document.querySelector("#text-call-total");
-const textSmsTotal = document.querySelector("#text-sms-total");
-const textTotal = document.querySelector("#text-total");
+const textCallTotal = document.querySelector(".text-call-total");
+const textSmsTotal = document.querySelector(".text-sms-total");
+let textTotal = document.querySelector(".text-total");
 
 // TOTALS VARIABLES
 let callTextTotal = 0;
@@ -65,6 +75,16 @@ function textButtonClicked() {
 	}
 	const total = callTextTotal + smsTextTotal;
 
+	textTotalContainer.innerHTML = totalTextTemplate({
+		textCallBill: "text-call-total",
+		textSmsBill: "text-sms-total",
+		textTotalBill: "text-total",
+		textCallTotal: callTextTotal.toFixed(2),
+		textSmsTotal: smsTextTotal.toFixed(2),
+		textTotal: total.toFixed(2)
+	});
+
+	textTotal = document.querySelector(".text-total");
 	textTotal.classList.remove("warning", "danger");
 	if (total > 50) {
 		textTotal.classList.add("danger");
@@ -72,9 +92,6 @@ function textButtonClicked() {
 		textTotal.classList.add("warning");
 	}
 
-	textCallTotal.innerHTML = "R" + totalTextTemplate({ textCallTotal: callTextTotal.toFixed(2) });
-	textSmsTotal.innerHTML = "R" + totalTextTemplate({ textSmsTotal: smsTextTotal.toFixed(2) });
-	textTotal.innerHTML = "R" + totalTextTemplate({ textTotal: total.toFixed(2) });
 	textString.focus();
 
 	if (message.type !== null) {
@@ -87,9 +104,15 @@ textButton.addEventListener('click', textButtonClicked);
 function resetTextTotals() {
 	callTextTotal = 0;
 	smsTextTotal = 0;
-	textCallTotal.innerHTML = "R0.00";
-	textSmsTotal.innerHTML = "R0.00";
-	textTotal.innerHTML = "R0.00";
+	textTotalContainer.innerHTML = totalTextTemplate({
+		textCallBill: "text-call-total",
+		textSmsBill: "text-sms-total",
+		textTotalBill: "text-total",
+		textCallTotal: '0.00',
+		textSmsTotal: '0.00',
+		textTotal: '0.00'
+	});
+
 	textTotal.classList.remove("warning", "danger");
 	textString.focus();
 

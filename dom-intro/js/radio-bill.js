@@ -1,15 +1,24 @@
 // TEMPLATE SETUP
-var templateSource = document.querySelector(".totalTemplate").innerHTML;
-var totalTextTemplate = Handlebars.compile(templateSource);
+var totalRadioTemplate = Handlebars.compile(templateSource);
+
+var radioTotalContainer = document.querySelector(".radio-total-container");
+radioTotalContainer.innerHTML = totalRadioTemplate({
+	radioCallBill: "radio-call-total",
+	radioSmsBill: "radio-sms-total",
+	radioTotalBill: "radio-total",
+	radioCallTotal: '0.00',
+	radioSmsTotal: '0.00',
+	radioTotal: '0.00'
+});
 
 // INPUT ELEMENTS
 const radioButton = document.querySelector("#radio-button");
 const radioReset = document.querySelector("#radio-reset");
 
 // OUTPUT ELEMENTS
-const radioCallTotal = document.querySelector("#radio-call-total");
-const radioSmsTotal = document.querySelector("#radio-sms-total");
-const radioTotal = document.querySelector("#radio-total");
+const radioCallTotal = document.querySelector(".radio-call-total");
+const radioSmsTotal = document.querySelector(".radio-sms-total");
+let radioTotal = document.querySelector(".radio-total");
 
 let callRadioTotal = 0;
 let smsRadioTotal = 0;
@@ -25,16 +34,22 @@ function radioButtonClicked() {
 		}
 		const total = callRadioTotal + smsRadioTotal;
 
+		radioTotalContainer.innerHTML = totalRadioTemplate({
+			radioCallBill: "radio-call-total",
+			radioSmsBill: "radio-sms-total",
+			radioTotalBill: "radio-total",
+			radioCallTotal: callRadioTotal.toFixed(2),
+			radioSmsTotal: smsRadioTotal.toFixed(2),
+			radioTotal: total.toFixed(2)
+		});
+		
+		radioTotal = document.querySelector(".radio-total");
 		radioTotal.classList.remove("warning", "danger");
 		if (total > 50) {
 			radioTotal.classList.add("danger");
 		} else if (total > 30) {
 			radioTotal.classList.add("warning");
 		}
-
-		radioCallTotal.innerHTML = "R" + totalTextTemplate({ radioCallTotal: callRadioTotal.toFixed(2) });
-		radioSmsTotal.innerHTML = "R" + totalTextTemplate({ radioSmsTotal: smsRadioTotal.toFixed(2) });
-		radioTotal.innerHTML = "R" + totalTextTemplate({ radioTotal: total.toFixed(2) });
 	} else {
 		message.type = "error";
 		message.text = "Select a bill type.";
@@ -49,9 +64,14 @@ radioButton.addEventListener('click', radioButtonClicked);
 function resetRadioTotals() {
 	callRadioTotal = 0;
 	smsRadioTotal = 0;
-	radioCallTotal.innerHTML = "R0.00";
-	radioSmsTotal.innerHTML = "R0.00";
-	radioTotal.innerHTML = "R0.00";
+	radioTotalContainer.innerHTML = totalRadioTemplate({
+		radioCallBill: "radio-call-total",
+		radioSmsBill: "radio-sms-total",
+		radioTotalBill: "radio-total",
+		radioCallTotal: '0.00',
+		radioSmsTotal: '0.00',
+		radioTotal: '0.00'
+	});
 	radioTotal.classList.remove("warning", "danger");
 
 	message.type = "success";

@@ -14,12 +14,19 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.7/handlebars.min.js"></script>
 
 	<script type="text/x-template" class="totalTemplate">
-		{{textCallTotal}}
-		{{textSmsTotal}}
-		{{textTotal}}
-		{{radioCallTotal}}
-		{{radioSmsTotal}}
-		{{radioTotal}}
+		<h5 class="col-12-sm">Totals</h5>
+		<div class="col-12-sm">
+			<span class="col-3-sm col-4">Call total:</span>
+			<span class="col-3-sm bold {{textCallBill}}{{radioCallBill}}">R{{textCallTotal}}{{radioCallTotal}}</span>
+		</div>
+		<div class="col-12-sm">
+			<span class="col-3-sm col-4">SMS total:</span>
+			<span class="col-3-sm bold {{textSmsBill}}{{radioSmsBill}}">R{{textSmsTotal}}{{radioSmsTotal}}</span>
+		</div>
+		<div class="col-12-sm">
+			<span class="col-3-sm col-5">Total amount:</span>
+			<span class="big {{textTotalBill}}{{radioTotalBill}}">R{{textTotal}}{{radioTotal}}</span>
+		</div>
 	</script>
 
 </head>
@@ -27,6 +34,7 @@
 <body>
 	<div class="container">
 		<div class="row">
+
 			<!-- TEXT BILL -->
 			<div class="col-12-sm col-6 bill-widget" id="text-widget">
 				<div class="col-12-sm">
@@ -40,18 +48,20 @@
 					<button class="col-3-sm reset-button" id="text-reset" type="reset" name="button">Reset</button>
 
 					<!-- output elements -->
-					<h5 class="col-12-sm">Totals</h5>
-					<div class="col-12-sm">
-						<span class="col-3-sm col-4">Call total:</span>
-						<span class="col-3-sm bold" id="text-call-total">R0.00</span>
-					</div>
-					<div class="col-12-sm">
-						<span class="col-3-sm col-4">SMS total:</span>
-						<span class="col-3-sm bold" id="text-sms-total">R0.00</span>
-					</div>
-					<div class="col-12-sm">
-						<span class="col-3-sm col-5">Total amount:</span>
-						<span class="big" id="text-total">R0.00</span>
+					<div class="text-total-container">
+						<h5 class="col-12-sm">Totals</h5>
+						<div class="col-12-sm">
+							<span class="col-3-sm col-4">Call total:</span>
+							<span class="col-3-sm bold" id="text-call-total">R0.00</span>
+						</div>
+						<div class="col-12-sm">
+							<span class="col-3-sm col-4">SMS total:</span>
+							<span class="col-3-sm bold" id="text-sms-total">R0.00</span>
+						</div>
+						<div class="col-12-sm">
+							<span class="col-3-sm col-5">Total amount:</span>
+							<span class="big" id="text-total">R0.00</span>
+						</div>
 					</div>
 
 					<!-- messages -->
@@ -85,18 +95,7 @@
 					</div>
 
 					<!-- output elements -->
-					<h5 class="col-12-sm">Totals</h5>
-					<div class="col-12-sm">
-						<span class="col-3-sm col-4">Call total:</span>
-						<span class="col-3-sm bold" id="radio-call-total">R0.00</span>
-					</div>
-					<div class="col-12-sm">
-						<span class="col-3-sm col-4">SMS total:</span>
-						<span class="col-3-sm bold" id="radio-sms-total">R0.00</span>
-					</div>
-					<div class="col-12-sm">
-						<span class="col-3-sm col-5">Total amount:</span>
-						<span class="big" id="radio-total">R0.00</span>
+					<div class="radio-total-container">
 					</div>
 
 					<!-- messages -->
@@ -113,13 +112,9 @@
 	<script src="js/advanced.js" charset="utf-8"></script>
 
 	<!-- WIDGET FUNCTIONS -->
-	<script src="js/calculate-bill.js" charset="utf-8"></script>
 	<script src="js/text-bill.js" charset="utf-8"></script>
 	<script src="js/radio-bill.js" charset="utf-8"></script>
-	<script src="js/settings-bill.js" charset="utf-8"></script>
 
-	<!-- TEMPLATE DATA -->
-	<script src="js/totals.js" charset="utf-8"></script>
 </body>
 
 </html>
