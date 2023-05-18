@@ -18,9 +18,9 @@ const textButton = document.querySelector("#text-button");
 const textReset = document.querySelector("#text-reset");
 
 // OUTPUT ELEMENTS
-const textCallTotal = document.querySelector(".text-call-total");
-const textSmsTotal = document.querySelector(".text-sms-total");
-let textTotal = document.querySelector(".text-total");
+const textCallTotal = document.querySelector("#text-call-total");
+const textSmsTotal = document.querySelector("#text-sms-total");
+let textTotal = document.querySelector("#text-total");
 
 // TOTALS VARIABLES
 let callTextTotal = 0;
@@ -84,11 +84,11 @@ function textButtonClicked() {
 		textTotal: total.toFixed(2)
 	});
 
-	textTotal = document.querySelector(".text-total");
+	textTotal = document.querySelector("#text-total");
 	textTotal.classList.remove("warning", "danger");
-	if (total > 50) {
+	if (total >= 50) {
 		textTotal.classList.add("danger");
-	} else if (total > 30) {
+	} else if (total >= 30) {
 		textTotal.classList.add("warning");
 	}
 

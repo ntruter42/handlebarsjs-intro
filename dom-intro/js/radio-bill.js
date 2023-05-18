@@ -16,9 +16,9 @@ const radioButton = document.querySelector("#radio-button");
 const radioReset = document.querySelector("#radio-reset");
 
 // OUTPUT ELEMENTS
-const radioCallTotal = document.querySelector(".radio-call-total");
-const radioSmsTotal = document.querySelector(".radio-sms-total");
-let radioTotal = document.querySelector(".radio-total");
+const radioCallTotal = document.querySelector("#radio-call-total");
+const radioSmsTotal = document.querySelector("#radio-sms-total");
+let radioTotal = document.querySelector("#radio-total");
 
 let callRadioTotal = 0;
 let smsRadioTotal = 0;
@@ -43,11 +43,11 @@ function radioButtonClicked() {
 			radioTotal: total.toFixed(2)
 		});
 		
-		radioTotal = document.querySelector(".radio-total");
+		radioTotal = document.querySelector("#radio-total");
 		radioTotal.classList.remove("warning", "danger");
-		if (total > 50) {
+		if (total >= 50) {
 			radioTotal.classList.add("danger");
-		} else if (total > 30) {
+		} else if (total >= 30) {
 			radioTotal.classList.add("warning");
 		}
 	} else {
@@ -57,7 +57,6 @@ function radioButtonClicked() {
 
 	message.widget = "radio-message";
 	displayMessage(message);
-	updateTotals();
 }
 radioButton.addEventListener('click', radioButtonClicked);
 
@@ -78,6 +77,5 @@ function resetRadioTotals() {
 	message.text = "Totals have been reset.";
 	message.widget = "radio-message";
 	displayMessage(message);
-	updateTotals();
 }
 radioReset.addEventListener('click', resetRadioTotals);
