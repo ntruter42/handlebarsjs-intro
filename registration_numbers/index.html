@@ -11,40 +11,82 @@
 </head>
 
 <body>
-	<form id="form-container">
-		<label for="reg-input">
-			<span>Registration Number:</span>
-			<input id="reg-input" class="plate" type="text" name="reg-input" maxlength="10" autocomplete="off">
-			<button id="reg-button" type="button">ADD</button>
-		</label>
-	</form>
-
-	<div id="message-container" class="hidden">
-		<span id="reg-message"></span>
-	</div>
-
-	<div id="display-container">
-		<form id="filter-container">
-			<label for="reg-filter">Filter
-				<select name="reg-filter" id="reg-filter">
-					<option value="">Show All</option>
-					<option value="CA">Cape Town (CA)</option>
-					<option value="CF">Kuils River (CF)</option>
-					<option value="CG">Oudtshoorn (CG)</option>
-					<option value="CJ">Paarl (CJ)</option>
-					<option value="CK">Malmesbury (CK)</option>
-					<option value="CL">Stellenbosch (CL)</option>
-				</select>
+	<!-- NO TEMPLATE -->
+	<div class="registration-widget reg-no-template">
+		<form class="form-container">
+			<label for="reg-input">
+				<span>Registration Number:</span>
+				<input class="reg-input plate" type="text" name="reg-input" maxlength="10" autocomplete="off">
+				<button class="reg-button" type="button">ADD</button>
 			</label>
-			<button id="reg-clear" type="button">CLEAR</button>
 		</form>
 
-		<div id="empty-container" class="hidden">
-			<span id="reg-empty"></span>
+		<div class="message-container" class="hidden">
+			<span class="reg-message"></span>
 		</div>
-		
-		<ul id="reg-num-container">
-		</ul>
+
+		<div class="display-container">
+			<form class="filter-container">
+				<label for="reg-filter">Filter
+					<select name="reg-filter" class="reg-filter">
+						<option value="">Show All</option>
+						<option value="CA">Cape Town (CA)</option>
+						<option value="CF">Kuils River (CF)</option>
+						<option value="CG">Oudtshoorn (CG)</option>
+						<option value="CJ">Paarl (CJ)</option>
+						<option value="CK">Malmesbury (CK)</option>
+						<option value="CL">Stellenbosch (CL)</option>
+					</select>
+				</label>
+				<button class="reg-clear" type="button">CLEAR</button>
+			</form>
+
+			<div class="empty-container" class="hidden">
+				<span class="reg-empty"></span>
+			</div>
+
+			<ul class="reg-num-container">
+			</ul>
+		</div>
+	</div>
+
+	<!-- USING TEMPLATE -->
+	<div class="registration-widget" class="reg-yes-template">
+		<form class="form-container">
+			<label for="reg-input">
+				<span>Registration Number:</span>
+				<input class="reg-input" class="plate" type="text" name="reg-input" maxlength="10" autocomplete="off">
+				<button class="reg-button" type="button">ADD</button>
+			</label>
+		</form>
+
+		<div class="message-container" class="hidden">
+			<span class="reg-message"></span>
+		</div>
+
+		<div class="display-container">
+			<form class="filter-container">
+				<label for="reg-filter">Filter
+					<select name="reg-filter" class="reg-filter">
+						<option value="">Show All</option>
+						<option value="CA">Cape Town (CA)</option>
+						<option value="CF">Kuils River (CF)</option>
+						<option value="CG">Oudtshoorn (CG)</option>
+						<option value="CJ">Paarl (CJ)</option>
+						<option value="CK">Malmesbury (CK)</option>
+						<option value="CL">Stellenbosch (CL)</option>
+					</select>
+				</label>
+				<button class="reg-clear" type="button">CLEAR</button>
+			</form>
+
+			<div class="empty-container" class="hidden">
+				<span class="reg-empty"></span>
+			</div>
+
+			<ul class="reg-num-container">
+			</ul>
+		</div>
 	</div>
 </body>
 

@@ -1,16 +1,16 @@
 // INPUT ELEMENTS
-const input = document.querySelector('#reg-input');
-const button = document.querySelector('#reg-button');
-const clear = document.querySelector('#reg-clear');
-const select = document.querySelector('#reg-filter');
+const input = document.querySelector('.reg-input');
+const button = document.querySelector('.reg-button');
+const clear = document.querySelector('.reg-clear');
+const select = document.querySelector('.reg-filter');
 let option = select.options[select.selectedIndex];
 
 // OUTPUT ELEMENTS
-const regNumList = document.querySelector('#reg-num-container');
-const messageBox = document.querySelector('#message-container');
-const messageText = document.querySelector('#reg-message');
-const emptyBox = document.querySelector('#empty-container');
-const emptyText = document.querySelector('#reg-empty');
+const regNumList = document.querySelector('.reg-num-container');
+const messageBox = document.querySelector('.message-container');
+const messageText = document.querySelector('.reg-message');
+const emptyBox = document.querySelector('.empty-container');
+const emptyText = document.querySelector('.reg-empty');
 
 // FUNTIONALITY
 let messageTimeout = 0;
