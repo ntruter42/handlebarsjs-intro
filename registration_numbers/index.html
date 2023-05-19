@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Registration Numbers</title>
+	<link rel="stylesheet" href="css/normalize.css">
+	<link rel="stylesheet" href="css/registration_number.css">
+</head>
+
+<body>
+	<form id="form-container">
+		<label for="reg-input">
+			<span>Registration Number:</span>
+			<input id="reg-input" class="plate" type="text" name="reg-input" maxlength="10" autocomplete="off">
+			<button id="reg-button" type="button">ADD</button>
+		</label>
+	</form>
+
+	<div id="message-container" class="hidden">
+		<span id="reg-message"></span>
+	</div>
+
+	<div id="display-container">
+		<form id="filter-container">
+			<label for="reg-filter">Filter
+				<select name="reg-filter" id="reg-filter">
+					<option value="">Show All</option>
+					<option value="CA">Cape Town (CA)</option>
+					<option value="CF">Kuils River (CF)</option>
+					<option value="CG">Oudtshoorn (CG)</option>
+					<option value="CJ">Paarl (CJ)</option>
+					<option value="CK">Malmesbury (CK)</option>
+					<option value="CL">Stellenbosch (CL)</option>
+				</select>
+			</label>
+			<button id="reg-clear" type="button">CLEAR</button>
+		</form>
+
+		<div id="empty-container" class="hidden">
+			<span id="reg-empty"></span>
+		</div>
+		
+		<ul id="reg-num-container">
+		</ul>
+	</div>
+</body>
+
+<script src="js/registration_number.js" charset="utf-8"></script>
+<script src="js/registration_number_dom.js" charset="utf-8"></script>
+
+
+</html>
