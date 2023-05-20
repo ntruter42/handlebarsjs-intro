@@ -46,7 +46,6 @@ function displayMessage(msgObj) {
 		const color = msgObj[message];
 
 		messageBox.classList.remove('hidden', 'red', 'orange', 'green');
-		regNumList.classList.add('display-height-offset');
 
 		messageText.innerHTML = message;
 
@@ -66,37 +65,38 @@ function displayMessage(msgObj) {
 
 		let duration = message.length * 100;
 
-		if (message === 'Registration code is invalid') {
-			messageTimeout = setTimeout(function () {
-				messageText.innerHTML = 'Valid registration codes: ';
-				messageText.innerHTML += '<b>CA</b>, <b>CF</b>, <b>CG</b>, <b>CJ</b>, <b>CK</b>, <b>CL</b>';
-				messageText.innerHTML += '';
+		messageTimeout = setTimeout(function () {
+			messageBox.classList.add('hidden');
+		}, duration);
 
-				messageBox.classList.remove('red', 'orange', 'green');
-				messageBox.classList.add('transparent');
-			}, duration);
-		} else if (message === 'Registration number format is invalid') {
-			messageTimeout = setTimeout(function () {
-				messageText.innerHTML = 'Valid format examples: ';
-				messageText.innerHTML += '<b>CA123456</b>, <b>CF 456 789</b>, <b>CG 789-012</b>, <b>CJ 345</b>';
-
-				messageBox.classList.remove('red', 'orange', 'green');
-				messageBox.classList.add('transparent');
-			}, duration);
-		} else {
-			messageTimeout = setTimeout(function () {
-				messageBox.classList.add('hidden');
-				regNumList.classList.remove('display-height-offset');
-			}, duration);
-		}
+		// if (message === 'Registration code is invalid') {
+		// 	messageTimeout = setTimeout(function () {
+		// 		messageText.innerHTML = 'Valid registration codes: ';
+		// 		messageText.innerHTML += '<b>CA</b>, <b>CF</b>, <b>CG</b>, <b>CJ</b>, <b>CK</b>, <b>CL</b>';
+		// 		messageText.innerHTML += '';
+		// 		messageBox.classList.remove('red', 'orange', 'green');
+		// 	}, duration);
+		// } else if (message === 'Registration number format is invalid') {
+		// 	messageTimeout = setTimeout(function () {
+		// 		messageText.innerHTML = 'Valid format examples: ';
+		// 		messageText.innerHTML += '<b>CA123456</b>, <b>CF 456 789</b>, <b>CG 789-012</b>, <b>CJ 345</b>';
+		// 		messageBox.classList.remove('red', 'orange', 'green');
+		// 	}, duration);
+		// } else {
+		// 	messageTimeout = setTimeout(function () {
+		// 		messageBox.classList.add('hidden');
+		// 	}, duration);
+		// }
 	}
 }
 
-function addValidRegPlate() {
-	reg.setReg(input.value.toUpperCase());
-	displayMessage(reg.addExceptionMessage());
+function addValidReg() {
+	if (reg.setReg(input.value.toUpperCase())) {
+		reg.addToRegList();
+		input.value = "";
+	}
 	showRegPlates(option.value);
-	input.value = "";
+	displayMessage(reg.getMessage());
 }
 
 function addRegPlate(regNumInput) {
@@ -116,7 +116,7 @@ function addRegPlate(regNumInput) {
 
 					regNumPlate.appendChild(regNum);
 					regNumItem.appendChild(regNumPlate);
-					regNumList.appendChild(regNumItem);
+					regNumList.insertBefore(regNumItem, regNumList.firstChild);
 				}
 			}
 		}
@@ -145,16 +145,28 @@ function clearRegPlates() {
 	});
 }
 
-button.addEventListener('click', addValidRegPlate);
+button.addEventListener('click', addValidReg);
 
 input.addEventListener('keydown', function (event) {
 	if (event.keyCode === 13) {
 		event.preventDefault();
-		addValidRegPlate();
+		addValidReg();
 	}
 });
 
 select.addEventListener('change', function () {
+	option = select.options[select.selectedIndex];
+	showRegPlates(option.value);
+});
+
+select.addEventListener('wheel', function (event) {
+	const scrollDiff = Math.sign(event.deltaY);
+	const index = select.selectedIndex + scrollDiff;
+
+	if (index >= 0 && index < select.options.length) {
+		select.selectedIndex = index;
+	}
+
 	option = select.options[select.selectedIndex];
 	showRegPlates(option.value);
 });
@@ -164,7 +176,7 @@ clear.addEventListener('click', function () {
 		reg.clearRegList();
 		clearRegPlates();
 		showRegPlates(option.value);
-		displayMessage(reg.clearExceptionMessage());
+		displayMessage(reg.getMessage());
 	}
 });
 

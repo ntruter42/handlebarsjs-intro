@@ -1,0 +1,40 @@
+body {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	align-items: flex-start;
+
+	width: 100vw;
+	height: 100vh;
+	padding: 0;
+	margin: 0;
+}
+
+#links {
+	outline: 2px solid magenta !important;
+
+	display: flex;
+	justify-content: space-evenly;
+
+	width: 100%;
+}
+
+#links a {
+	display: flex;
+	justify-content: center;
+
+	width: 50%;
+}
+
+#table {
+	outline: 1px solid cyan !important;
+}
+
+#table table {
+	border-collapse: collapse;
+}
+
+#table th,
+td {
+	border: 1px solid black;
+}

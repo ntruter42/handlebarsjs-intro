@@ -13,24 +13,33 @@ function RegistrationNumber() {
 	};
 
 	function setReg(regNumValue) {
-		regNum = regNumValue.toUpperCase();
+		console.log(regNumValue);
+		if (regNumValue === '') {
+			setMessage('Enter a registration number', 'red');
+		} else if (!isValidReg(regNumValue)) {
+			setMessage('Invalid registration number format', 'red');
+		} else if (!isValidCode(regNumValue)) {
+			setMessage("Invalid registration town code", 'red');
+		} else {
+			regNum = regNumValue.toUpperCase();
+			return true;
+		}
+		return false;
 	}
 
 	function getReg() {
 		return regNum;
 	}
 
-	function isValidReg() {
-		if (!/^C[AFGJKL]( |)(\d{3,6}|\d{1,5}(-| )\d{1,5})$/.test(regNum)) {
-			message = { 'Invalid registration number format': 'red' };
+	function isValidReg(regNumValue) {
+		if (!/^[a-zA-Z]{2,3}( |)(\d{3,6}|(\d{1,5}(-| )\d{2,5}|\d{2,5}(-| )\d{1,5}))$/.test(regNumValue)) {
 			return false;
 		}
 		return true;
 	}
 
-	function isValidCode() {
-		if (!/C[AFGJKL]/.test(regNum.slice(0, 2))) {
-			message = { "Invalid registration number code": 'red' };
+	function isValidCode(regNumValue) {
+		if (!/C[AFGJKL][^a-zA-Z]/.test(regNumValue.slice(0, 3))) {
 			return false;
 		}
 		return true;
@@ -48,9 +57,11 @@ function RegistrationNumber() {
 		if (regList[regNum] === undefined) {
 			regList[regNum] = getRegCode();
 			localStorage.setItem('regList', JSON.stringify(regList));
-			return true;
+			regNum = '';
+			setMessage('Registration number added succesfully', 'green');
+		} else {
+			setMessage('Registration number already exists', 'orange');
 		}
-		return false;
 	}
 
 	function removeFromRegList(regNumValue) {
@@ -68,45 +79,26 @@ function RegistrationNumber() {
 	}
 
 	function clearRegList() {
-		regList = {};
-		localStorage.removeItem("regList");
-
-		// Uncomment and alter to delete individual entries
-		// delete regList['CJ 20025 9'];
-		// localStorage.setItem('regList', JSON.stringify(regList));
-	}
-
-	// TODO: add exceptions within individual functions
-	function addExceptionMessage() {
-		if (regNum === '') {
-			return { 'Enter a registration number': 'red' };
-		} else if (!isValidReg()) {
-			if (!isValidCode()) {
-				return { 'Registration code is invalid': 'red' };
-			} else {
-				return { 'Registration number format is invalid': 'red' };
-			}
-		} else if (!addToRegList()) {
-			return { 'Registration number already exists': 'orange' };
+		if (!regList) {
+			setMessage('Registration numbers is already empty', 'orange');
 		} else {
-			return { 'Registration number added succesfully': 'green' };
+			regList = {};
+			localStorage.removeItem("regList");
+			setMessage('Registration numbers cleared succesfully', 'green');
 		}
 	}
 
-	function clearExceptionMessage() {
-		if (!regNumList) {
-			return { 'Registration numbers NOT cleared': 'orange' };
-		} else {
-			return { 'Registration numbers cleared succesfully': 'green' };
+	function setMessage(messageValue, color) {
+		if (messageValue !== '') {
+			message[messageValue] = color;
 		}
-	}
-
-	function setMessage(messageValue, type) {
-		message = { messageValue: type };
 	}
 
 	function getMessage() {
-		return message;
+		let displayMessage = message;
+		message = {};
+
+		return displayMessage;
 	}
 
 	return {
@@ -121,8 +113,6 @@ function RegistrationNumber() {
 		setRegList,
 		getRegList,
 		clearRegList,
-		addExceptionMessage,
-		clearExceptionMessage,
 		setMessage,
 		getMessage
 	};
