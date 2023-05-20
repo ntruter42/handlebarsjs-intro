@@ -1,16 +1,18 @@
+const noTemplate = document.querySelector('.reg-no-template');
+
 // INPUT ELEMENTS
-const input = document.querySelector('.reg-input');
-const button = document.querySelector('.reg-button');
-const clear = document.querySelector('.reg-clear');
-const select = document.querySelector('.reg-filter');
+const input = noTemplate.querySelector('.reg-input');
+const button = noTemplate.querySelector('.reg-button');
+const clear = noTemplate.querySelector('.reg-clear');
+const select = noTemplate.querySelector('.reg-filter');
 let option = select.options[select.selectedIndex];
 
 // OUTPUT ELEMENTS
-const regNumList = document.querySelector('.reg-num-container');
-const messageBox = document.querySelector('.message-container');
-const messageText = document.querySelector('.reg-message');
-const emptyBox = document.querySelector('.empty-container');
-const emptyText = document.querySelector('.reg-empty');
+const regNumList = noTemplate.querySelector('.reg-num-container');
+const messageBox = noTemplate.querySelector('.message-container');
+const messageText = noTemplate.querySelector('.reg-message');
+const emptyBox = noTemplate.querySelector('.empty-container');
+const emptyText = noTemplate.querySelector('.reg-empty');
 
 // FUNTIONALITY
 let messageTimeout = 0;
@@ -23,13 +25,16 @@ function showEmpty(code) {
 	if (!regNumList.firstElementChild && code !== '') {
 		emptyText.innerHTML = 'No registration numbers for<br>' + reg.getRegTown(code) + ' (' + code + ')';
 		emptyBox.classList.remove('hidden');
+		regNumList.classList.add('hidden');
 		regNumList.style.resize = 'none';
 	} else if (!regNumList.firstElementChild && code === '') {
 		emptyText.innerHTML = 'No registration numbers';
 		emptyBox.classList.remove('hidden');
+		regNumList.classList.add('hidden');
 		regNumList.style.resize = 'none';
 	} else {
 		emptyBox.classList.add('hidden');
+		regNumList.classList.remove('hidden');
 		regNumList.style.resize = 'horizontal';
 	}
 }
@@ -132,7 +137,7 @@ function showRegPlates(filter) {
 }
 
 function clearRegPlates() {
-	const regPlates = document.querySelectorAll('li');
+	const regPlates = noTemplate.querySelectorAll('li');
 
 	regPlates.forEach(plate => {
 		// TODO: remove only elements from filter location

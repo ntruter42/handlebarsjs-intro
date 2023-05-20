@@ -1,0 +1,239 @@
+/* ==================== SOURCES ==================== */
+
+@import url('https://fonts.googleapis.com/css2?family=PT+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+
+@font-face {
+	font-family: 'Registration Number';
+	src: url('../assets/fonts/gl-nummernschild-font/GlNummernschildMtl-LrZZ.ttf');
+}
+
+/* ==================== MAIN ==================== */
+
+:root {
+	--bg-color: #ffff;
+	--ol-color: #000f;
+
+	--ibg-color: #fff0;
+	--iol-color: #0000;
+
+	--obg-color: #ffff;
+	--ool-color: #000f;
+
+	--primary-border: 4px solid black;
+	--plate-gradient: linear-gradient(#ddd, #aaa);
+
+	font-family: 'PT Sans', 'Segoe UI', sans-serif;
+	font-size: 16px;
+}
+
+body {
+	font-size: 1.5rem;
+
+	background-image: url('../assets/images/2020-tesla-roadster.png');
+	background-size: cover;
+	background-position: left top;
+
+	display: flex;
+	/* justify-content: space-evenly; */
+
+	height: 100vh;
+	overflow: hidden;
+}
+
+.registration-widget {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+
+	width: 50vw;
+	height: auto;
+}
+
+/* ==================== INPUT FORM ==================== */
+
+.form-container {
+	background-color: var(--bg-color);
+	border: 2px solid var(--ol-color);
+
+	height: auto;
+	border-radius: 20px;
+	padding: 20px;
+	margin: 20px 0;
+}
+
+.form-container label {
+	display: flex;
+	flex-direction: column;
+}
+
+.form-container label input {
+	text-align: center;
+
+	margin: 10px 0;
+}
+
+.form-container label input:focus {
+	outline: 4px solid #06f;
+
+	caret-color: black;
+}
+
+.form-container label button {
+	padding: 0 10px;
+	margin: auto;
+}
+
+/* ==================== VALIDATION/ERROR MESSAGES ==================== */
+
+.message-container {
+	background-color: var(--bg-color);
+	border: 2px solid var(--ol-color);
+	box-shadow: 0 2px 10px black;
+
+	z-index: -1;
+	text-align: center;
+
+	border-radius: 10px;
+	padding: 5px 10px;
+	margin-bottom: 20px;
+}
+
+.empty-container {
+	text-align: center;
+}
+
+.hidden {
+	display: none !important;
+}
+
+.transparent {
+	background-color: #fff !important;
+	border: 2px solid #000 !important;
+}
+
+.red {
+	background-color: #f88 !important;
+	border: 2px solid #f00 !important;
+}
+
+.orange {
+	background-color: #fd8 !important;
+	border: 2px solid #fa0 !important;
+}
+
+.green {
+	background-color: #8f8 !important;
+	border: 2px solid #0c0 !important;
+}
+
+/* ==================== REGISTRATION NUMBER DISPLAY ==================== */
+
+.display-container {
+	background-color: var(--obg-color);
+	border: 2px solid var(--ool-color);
+
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+
+	max-height: calc(100% - 300px);
+	border-radius: 20px;
+	padding: 20px;
+}
+
+/* ==================== FILTER FORM ==================== */
+
+.filter-container {
+	margin-bottom: 20px;
+}
+
+/* ==================== REGISTRATION NUMBER PLATES ==================== */
+
+.reg-num-container {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+
+	width: max-content;
+	max-width: 308px;
+
+	overflow: auto;
+	list-style: none;
+}
+
+.plate {
+	font-size: 4rem;
+	font-family: 'Registration Number', 'PT Sans', 'Segoe UI', sans-serif;
+
+	background-image: var(--plate-gradient);
+	box-shadow: inset 1px 2px grey, inset -2px -1px white;
+	text-shadow: 1px 2px grey, -2px -1px white;
+	border: var(--primary-border);
+
+	display: flex;
+	justify-content: center;
+
+	width: 300px;
+	border-radius: 18px;
+	margin: 0 0 8px 0;
+}
+
+/* .display-height-offset {
+	max-height: calc(100vh - 200px) !important;
+} */
+
+/* ==================== ANIMATIONS ==================== */
+
+/* ==================== RESPONSIVENESS ==================== */
+
+@media (min-width: 1400px) {
+	.reg-num-container {
+		max-width: 624px;
+	}
+
+	.reg-num-container li:nth-child(even) .plate {
+		margin: 0 0 8px 8px;
+	}
+}
+
+/* ==================== LAYOUT GUIDES ==================== */
+/*
+* {
+	outline: 1px solid magenta;
+}
+
+:root,
+html,
+body {
+	outline: 1px solid black;
+}
+
+form {
+	outline: 1px solid blue;
+}
+
+ul {
+	outline: 1px solid green;
+}
+
+li {
+	outline: 1px solid yellow;
+}
+
+.plate {
+	outline: 1px solid cyan;
+}
+
+/* order of properties
+
+element {
+	font
+
+	color
+
+	flow
+
+	shape
+
+	misc
+}
