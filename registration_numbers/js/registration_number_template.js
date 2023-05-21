@@ -20,6 +20,10 @@
 	// FUNTIONALITY
 	let messageTimeout = 0;
 
+	// TEMPLATE SETUP
+	var templateSource = document.querySelector(".reg-plate-template").innerHTML;
+	var regPlateTemplate = Handlebars.compile(templateSource);
+
 	// INITIALISATION
 	const yesTemplateReg = RegistrationNumber();
 	showRegPlates(option.value);
@@ -44,7 +48,7 @@
 	}
 
 	function displayHelp() {
-		let helpContent = 'Valid Registration codes : ';
+		let helpContent = 'Valid Registration Codes: ';
 		helpContent += '<b>CA</b>, <b>CF</b>, <b>CG</b>, <b>CJ</b>, <b>CK</b>, <b>CL</b>';
 		helpContent += '<hr>';
 		helpContent += 'Examples of Valid Registration Numbers:<br>';
@@ -95,25 +99,7 @@
 
 	function addRegPlate(regNumInput) {
 		if (regNumInput) {
-
-			const regNumItem = document.createElement('li');
-			if (regNumItem) {
-
-				const regNumPlate = document.createElement('div');
-				if (regNumPlate) {
-					regNumPlate.classList.add('plate');
-
-					const regNum = document.createElement('span');
-					if (regNum) {
-						regNum.classList.add('reg-num');
-						regNum.innerHTML = regNumInput.toUpperCase();
-
-						regNumPlate.appendChild(regNum);
-						regNumItem.appendChild(regNumPlate);
-						regNumList.insertBefore(regNumItem, regNumList.firstChild);
-					}
-				}
-			}
+			regNumList.innerHTML += regPlateTemplate({ regNum: regNumInput });
 		}
 	}
 
@@ -142,6 +128,10 @@
 	button.addEventListener('click', function () {
 		addValidReg();
 		input.focus();
+	});
+
+	button.addEventListener('focus', function () {
+		helpBox.style.display = 'block';
 	});
 
 	input.addEventListener('keydown', function (event) {

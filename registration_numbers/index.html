@@ -8,6 +8,16 @@
 	<title>Registration Numbers</title>
 	<link rel="stylesheet" href="css/normalize.css">
 	<link rel="stylesheet" href="css/registration_number.css">
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.7/handlebars.min.js"></script>
+
+	<script type="text/x-template" class="reg-plate-template">
+			<li>
+				<div class="plate">
+					<span class="reg-num">{{regNum}}</span>
+				</div>
+			</li>
+		</script>
 </head>
 
 <body>
@@ -64,12 +74,12 @@
 			</label>
 		</form>
 
-		<div class="help-container white">
-			<span class="reg-help">If you see this, you forgot to set<br>helpText.innerHTML</span>
-		</div>
-
 		<div class="message-container hidden">
 			<span class="reg-message"></span>
+		</div>
+
+		<div class="help-container white">
+			<span class="reg-help">If you see this, you forgot to set<br>helpText.innerHTML</span>
 		</div>
 
 		<div class="display-container">

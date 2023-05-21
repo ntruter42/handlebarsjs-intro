@@ -44,7 +44,7 @@
 	}
 
 	function displayHelp() {
-		let helpContent = 'Valid Registration codes : ';
+		let helpContent = 'Valid Registration Codes: ';
 		helpContent += '<b>CA</b>, <b>CF</b>, <b>CG</b>, <b>CJ</b>, <b>CK</b>, <b>CL</b>';
 		helpContent += '<hr>';
 		helpContent += 'Examples of Valid Registration Numbers:<br>';
@@ -142,6 +142,10 @@
 	button.addEventListener('click', function () {
 		addValidReg();
 		input.focus();
+	});
+
+	button.addEventListener('focus', function () {
+		helpBox.style.display = 'block';
 	});
 
 	input.addEventListener('keydown', function (event) {
