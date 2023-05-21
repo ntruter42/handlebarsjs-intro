@@ -9,6 +9,8 @@ let option = select.options[select.selectedIndex];
 
 // OUTPUT ELEMENTS
 const regNumList = noTemplate.querySelector('.reg-num-container');
+const helpBox = noTemplate.querySelector('.help-container');
+const helpText = noTemplate.querySelector('.reg-help');
 const messageBox = noTemplate.querySelector('.message-container');
 const messageText = noTemplate.querySelector('.reg-message');
 const emptyBox = noTemplate.querySelector('.empty-container');
@@ -20,6 +22,7 @@ let messageTimeout = 0;
 // INITIALISATION
 const reg = RegistrationNumber();
 showRegPlates(option.value);
+displayHelp();
 
 function showEmpty(code) {
 	if (!regNumList.firstElementChild && code !== '') {
@@ -37,6 +40,17 @@ function showEmpty(code) {
 		regNumList.classList.remove('hidden');
 		regNumList.style.resize = 'horizontal';
 	}
+}
+
+function displayHelp() {
+	let helpContent = 'Valid Registration codes : ';
+	helpContent += '<b>CA</b>, <b>CF</b>, <b>CG</b>, <b>CJ</b>, <b>CK</b>, <b>CL</b>';
+	helpContent += '<hr>';
+	helpContent += 'Examples of Valid Registration Numbers:<br>';
+	helpContent += '<b>CA 456 789</b>&emsp;&emsp;<b>CF123456</b>&emsp;&emsp;<b>CG 345</b>';
+	helpContent += '<br>'
+	helpContent += '<b>CJ 789-012</b>&emsp;&emsp;<b>CK 7345 6</b>&emsp;&emsp;<b>CL 1-44</b>';
+	helpText.innerHTML = helpContent;
 }
 
 function displayMessage(msgObj) {
@@ -63,30 +77,9 @@ function displayMessage(msgObj) {
 				break;
 		}
 
-		let duration = message.length * 100;
-
 		messageTimeout = setTimeout(function () {
 			messageBox.classList.add('hidden');
-		}, duration);
-
-		// if (message === 'Registration code is invalid') {
-		// 	messageTimeout = setTimeout(function () {
-		// 		messageText.innerHTML = 'Valid registration codes: ';
-		// 		messageText.innerHTML += '<b>CA</b>, <b>CF</b>, <b>CG</b>, <b>CJ</b>, <b>CK</b>, <b>CL</b>';
-		// 		messageText.innerHTML += '';
-		// 		messageBox.classList.remove('red', 'orange', 'green');
-		// 	}, duration);
-		// } else if (message === 'Registration number format is invalid') {
-		// 	messageTimeout = setTimeout(function () {
-		// 		messageText.innerHTML = 'Valid format examples: ';
-		// 		messageText.innerHTML += '<b>CA123456</b>, <b>CF 456 789</b>, <b>CG 789-012</b>, <b>CJ 345</b>';
-		// 		messageBox.classList.remove('red', 'orange', 'green');
-		// 	}, duration);
-		// } else {
-		// 	messageTimeout = setTimeout(function () {
-		// 		messageBox.classList.add('hidden');
-		// 	}, duration);
-		// }
+		}, message.length * 100);
 	}
 }
 
@@ -145,13 +138,24 @@ function clearRegPlates() {
 	});
 }
 
-button.addEventListener('click', addValidReg);
+button.addEventListener('click', function () {
+	addValidReg();
+	input.focus();
+});
 
 input.addEventListener('keydown', function (event) {
 	if (event.keyCode === 13) {
 		event.preventDefault();
 		addValidReg();
 	}
+});
+
+input.addEventListener('focus', function () {
+	helpBox.style.display = 'block';
+});
+
+input.addEventListener('blur', function () {
+	helpBox.style.display = 'none';
 });
 
 select.addEventListener('change', function () {

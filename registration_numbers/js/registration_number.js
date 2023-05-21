@@ -1,6 +1,6 @@
 function RegistrationNumber() {
 	let regNum = '';
-	let regList = JSON.parse(localStorage.getItem('regList')) || {};
+	let regList = JSON.parse(localStorage.getItem('regList')) || {};;
 	let message = {};
 
 	const regTownList = {
@@ -67,11 +67,14 @@ function RegistrationNumber() {
 	function removeFromRegList(regNumValue) {
 		if (regList[regNumValue] !== undefined) {
 			delete regList[regNumValue];
+			setMessage('Registration number removed succesfully', 'green');
+		} else {
+			setMessage('Registration number not found', 'orange');
 		}
 	}
 
 	function setRegList(regListValue) {
-		regList = regListValue;
+		regList = regListValue || {};
 	}
 
 	function getRegList() {
