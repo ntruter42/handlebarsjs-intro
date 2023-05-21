@@ -1,33 +1,33 @@
 (function () {
-	const noTemplate = document.querySelector('.reg-no-template');
+	const yesTemplate = document.querySelector('.reg-yes-template');
 
 	// INPUT ELEMENTS
-	const input = noTemplate.querySelector('.reg-input');
-	const button = noTemplate.querySelector('.reg-button');
-	const clear = noTemplate.querySelector('.reg-clear');
-	const select = noTemplate.querySelector('.reg-filter');
+	const input = yesTemplate.querySelector('.reg-input');
+	const button = yesTemplate.querySelector('.reg-button');
+	const clear = yesTemplate.querySelector('.reg-clear');
+	const select = yesTemplate.querySelector('.reg-filter');
 	let option = select.options[select.selectedIndex];
 
 	// OUTPUT ELEMENTS
-	const regNumList = noTemplate.querySelector('.reg-num-container');
-	const helpBox = noTemplate.querySelector('.help-container');
-	const helpText = noTemplate.querySelector('.reg-help');
-	const messageBox = noTemplate.querySelector('.message-container');
-	const messageText = noTemplate.querySelector('.reg-message');
-	const emptyBox = noTemplate.querySelector('.empty-container');
-	const emptyText = noTemplate.querySelector('.reg-empty');
+	const regNumList = yesTemplate.querySelector('.reg-num-container');
+	const helpBox = yesTemplate.querySelector('.help-container');
+	const helpText = yesTemplate.querySelector('.reg-help');
+	const messageBox = yesTemplate.querySelector('.message-container');
+	const messageText = yesTemplate.querySelector('.reg-message');
+	const emptyBox = yesTemplate.querySelector('.empty-container');
+	const emptyText = yesTemplate.querySelector('.reg-empty');
 
 	// FUNTIONALITY
 	let messageTimeout = 0;
 
 	// INITIALISATION
-	const noTemplateReg = RegistrationNumber();
+	const yesTemplateReg = RegistrationNumber();
 	showRegPlates(option.value);
 	displayHelp();
 
 	function showEmpty(code) {
 		if (!regNumList.firstElementChild && code !== '') {
-			emptyText.innerHTML = 'No registration numbers for<br>' + noTemplateReg.getRegTown(code) + ' (' + code + ')';
+			emptyText.innerHTML = 'No registration numbers for<br>' + yesTemplateReg.getRegTown(code) + ' (' + code + ')';
 			emptyBox.classList.remove('hidden');
 			regNumList.classList.add('hidden');
 			regNumList.style.resize = 'none';
@@ -85,12 +85,12 @@
 	}
 
 	function addValidReg() {
-		if (noTemplateReg.setReg(input.value.toUpperCase())) {
-			noTemplateReg.addToRegList();
+		if (yesTemplateReg.setReg(input.value.toUpperCase())) {
+			yesTemplateReg.addToRegList();
 			input.value = "";
 		}
 		showRegPlates(option.value);
-		displayMessage(noTemplateReg.getMessage());
+		displayMessage(yesTemplateReg.getMessage());
 	}
 
 	function addRegPlate(regNumInput) {
@@ -120,7 +120,7 @@
 	function showRegPlates(filter) {
 		clearRegPlates();
 
-		for (const regNum of Object.keys(noTemplateReg.getRegList())) {
+		for (const regNum of Object.keys(yesTemplateReg.getRegList())) {
 			if (regNum.startsWith(filter) || filter === "") {
 				addRegPlate(regNum);
 			}
@@ -131,7 +131,7 @@
 	}
 
 	function clearRegPlates() {
-		const regPlates = noTemplate.querySelectorAll('li');
+		const regPlates = yesTemplate.querySelectorAll('li');
 
 		regPlates.forEach(plate => {
 			// TODO: remove only elements from filter location
@@ -178,10 +178,10 @@
 
 	clear.addEventListener('click', function () {
 		if (confirm("Are you sure you want to clear all registration numbers?") === true) {
-			noTemplateReg.clearRegList();
+			yesTemplateReg.clearRegList();
 			clearRegPlates();
 			showRegPlates(option.value);
-			displayMessage(noTemplateReg.getMessage());
+			displayMessage(yesTemplateReg.getMessage());
 		}
 	});
 })();
