@@ -1,6 +1,6 @@
 function RegistrationNumber() {
 	let regNum = '';
-	let regList = JSON.parse(localStorage.getItem('regList')) || {};;
+	let regList = {};
 	let message = {};
 
 	const regTownList = {
@@ -56,9 +56,9 @@ function RegistrationNumber() {
 	function addToRegList() {
 		if (regList[regNum] === undefined) {
 			regList[regNum] = getRegCode();
-			localStorage.setItem('regList', JSON.stringify(regList));
 			regNum = '';
 			setMessage('Registration number added succesfully', 'green');
+			return (regList);
 		} else {
 			setMessage('Registration number already exists', 'orange');
 		}
@@ -86,7 +86,6 @@ function RegistrationNumber() {
 			setMessage('Registration numbers is already empty', 'orange');
 		} else {
 			regList = {};
-			localStorage.removeItem("regList");
 			setMessage('Registration numbers cleared succesfully', 'green');
 		}
 	}

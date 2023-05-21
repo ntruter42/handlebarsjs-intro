@@ -1,14 +1,15 @@
 (function () {
 	const yesTemplate = document.querySelector('.reg-yes-template');
 
-	// INPUT ELEMENTS
+	// ==================== INPUT ELEMENTS ==================== //
 	const input = yesTemplate.querySelector('.reg-input');
 	const button = yesTemplate.querySelector('.reg-button');
 	const clear = yesTemplate.querySelector('.reg-clear');
 	const select = yesTemplate.querySelector('.reg-filter');
 	let option = select.options[select.selectedIndex];
 
-	// OUTPUT ELEMENTS
+	// ==================== OUTPUT ELEMENTS ==================== //
+	const displayContainer = yesTemplate.querySelector('.display-container');
 	const regNumList = yesTemplate.querySelector('.reg-num-container');
 	const helpBox = yesTemplate.querySelector('.help-container');
 	const helpText = yesTemplate.querySelector('.reg-help');
@@ -17,19 +18,71 @@
 	const emptyBox = yesTemplate.querySelector('.empty-container');
 	const emptyText = yesTemplate.querySelector('.reg-empty');
 
-	// FUNTIONALITY
+	// ==================== FUNTIONALITY ==================== //
 	let messageTimeout = 0;
 
-	// TEMPLATE SETUP
-	var templateSource = document.querySelector(".reg-plate-template").innerHTML;
-	var regPlateTemplate = Handlebars.compile(templateSource);
+	// ==================== TEMPLATE SETUP ==================== //
+	let templateSource = document.querySelector(".reg-plate-template").innerHTML;
+	let regPlateTemplate = Handlebars.compile(templateSource);
 
-	// INITIALISATION
+	// ==================== INITIALISATION ==================== //
 	const yesTemplateReg = RegistrationNumber();
+	yesTemplateReg.setRegList(JSON.parse(localStorage.getItem('yesTemplateRegList')));
 	showRegPlates(option.value);
 	displayHelp();
 
-	function showEmpty(code) {
+	// ==================== MAIN FUNCTIONALITY ==================== //
+
+	function addValidReg() {
+		if (yesTemplateReg.setReg(input.value.toUpperCase())) {
+			localStorage.setItem('yesTemplateRegList', JSON.stringify(yesTemplateReg.addToRegList()));
+			input.value = "";
+		}
+		showRegPlates(option.value);
+		displayMessage(yesTemplateReg.getMessage());
+	}
+
+	function clearAllReg() {
+		localStorage.removeItem("yesTemplateRegList");
+		clearRegPlates();
+		showRegPlates(option.value);
+		displayMessage(yesTemplateReg.getMessage());
+	}
+
+	// ==================== DISPLAY FUNTIONALITY ==================== //
+
+	function addRegPlate(regNumInput) {
+		if (regNumInput) {
+			regNumList.innerHTML = regPlateTemplate({ regNum: regNumInput }) + regNumList.innerHTML;
+		}
+	}
+
+	function showRegPlates(filter) {
+		clearRegPlates();
+
+		for (const regNum of Object.keys(yesTemplateReg.getRegList())) {
+			if (regNum.startsWith(filter) || filter === "") {
+				addRegPlate(regNum);
+			}
+		}
+
+		option = select.options[select.selectedIndex];
+		displayEmpty(option.value);
+	}
+
+	function clearRegPlates() {
+		const regPlates = yesTemplate.querySelectorAll('li');
+
+		localStorage.removeItem("regList");
+		regPlates.forEach(plate => {
+			// TODO: remove only elements from filter location
+			plate.remove();
+		});
+	}
+
+	// ==================== DISPLAY MESSAGES ==================== //
+
+	function displayEmpty(code) {
 		if (!regNumList.firstElementChild && code !== '') {
 			emptyText.innerHTML = 'No registration numbers for<br>' + yesTemplateReg.getRegTown(code) + ' (' + code + ')';
 			emptyBox.classList.remove('hidden');
@@ -61,69 +114,38 @@
 	function displayMessage(msgObj) {
 		clearTimeout(messageTimeout);
 
-		for (const message in msgObj) {
-			const color = msgObj[message];
+		if (msgObj) {
+			for (const message in msgObj) {
+				const color = msgObj[message];
 
-			messageBox.classList.remove('hidden', 'red', 'orange', 'green');
+				messageBox.classList.remove('hidden', 'red', 'orange', 'green');
 
-			messageText.innerHTML = message;
+				messageText.innerHTML = message;
 
-			switch (color) {
-				case 'red':
-					messageBox.classList.add('red');
-					break;
-				case 'orange':
-					messageBox.classList.add('orange');
-					break;
-				case 'green':
-					messageBox.classList.add('green');
-					break;
-				default:
-					break;
+				switch (color) {
+					case 'red':
+						messageBox.classList.add('red');
+						break;
+					case 'orange':
+						messageBox.classList.add('orange');
+						break;
+					case 'green':
+						messageBox.classList.add('green');
+						break;
+					default:
+						break;
+				}
+
+				messageTimeout = setTimeout(function () {
+					messageBox.classList.add('hidden');
+				}, message.length * 100);
 			}
-
-			messageTimeout = setTimeout(function () {
-				messageBox.classList.add('hidden');
-			}, message.length * 100);
+		} else {
+			console.log("displayMessage() received an empty message");
 		}
 	}
 
-	function addValidReg() {
-		if (yesTemplateReg.setReg(input.value.toUpperCase())) {
-			yesTemplateReg.addToRegList();
-			input.value = "";
-		}
-		showRegPlates(option.value);
-		displayMessage(yesTemplateReg.getMessage());
-	}
-
-	function addRegPlate(regNumInput) {
-		if (regNumInput) {
-			regNumList.innerHTML += regPlateTemplate({ regNum: regNumInput });
-		}
-	}
-
-	function showRegPlates(filter) {
-		clearRegPlates();
-
-		for (const regNum of Object.keys(yesTemplateReg.getRegList())) {
-			if (regNum.startsWith(filter) || filter === "") {
-				addRegPlate(regNum);
-			}
-		}
-
-		option = select.options[select.selectedIndex];
-		showEmpty(option.value);
-	}
-
-	function clearRegPlates() {
-		const regPlates = yesTemplate.querySelectorAll('li');
-
-		regPlates.forEach(plate => {
-			// TODO: remove only elements from filter location
-			plate.remove();
-		});
-	}
+	// ==================== EVENT LISTENERS ==================== //
 
 	button.addEventListener('click', function () {
 		addValidReg();
@@ -132,6 +154,7 @@
 
 	button.addEventListener('focus', function () {
 		helpBox.style.display = 'block';
+		displayContainer.style.maxHeight = 'calc(100% - 449px)';
 	});
 
 	input.addEventListener('keydown', function (event) {
@@ -143,10 +166,12 @@
 
 	input.addEventListener('focus', function () {
 		helpBox.style.display = 'block';
+		displayContainer.style.maxHeight = 'calc(100% - 449px)';
 	});
 
 	input.addEventListener('blur', function () {
 		helpBox.style.display = 'none';
+		displayContainer.style.maxHeight = 'calc(100% - 300px)';
 	});
 
 	select.addEventListener('change', function () {
@@ -169,9 +194,7 @@
 	clear.addEventListener('click', function () {
 		if (confirm("Are you sure you want to clear all registration numbers?") === true) {
 			yesTemplateReg.clearRegList();
-			clearRegPlates();
-			showRegPlates(option.value);
-			displayMessage(yesTemplateReg.getMessage());
+			clearAllReg();
 		}
 	});
 })();

@@ -20,7 +20,8 @@
 	--ool-color: #000f;
 
 	--primary-border: 4px solid black;
-	--plate-gradient: linear-gradient(#ddd, #aaa);
+	--plate-gradient: linear-gradient(#ddd, #bbb);
+	--plate-focused: linear-gradient(#ec0, #fd2);
 
 	font-family: 'PT Sans', 'Segoe UI', sans-serif;
 	font-size: 16px;
@@ -73,7 +74,8 @@ body {
 }
 
 .form-container label input:focus {
-	outline: 4px solid #06f;
+	background-image: var(--plate-focused);
+	outline: none;
 
 	caret-color: black;
 }
@@ -156,7 +158,7 @@ body {
 	flex-direction: column;
 	align-items: center;
 
-	max-height: calc(100% - 390px);
+	max-height: calc(100% - 300px);
 	border-radius: 20px;
 	padding: 20px;
 }
