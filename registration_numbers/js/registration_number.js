@@ -1,4 +1,7 @@
 function RegistrationNumber() {
+
+	// ==================== VARIABLES / CONSTANTS ==================== //
+
 	let regNum = '';
 	let regList = {};
 	let message = {};
@@ -11,6 +14,8 @@ function RegistrationNumber() {
 		'CK': 'Malmesbury',
 		'CL': 'Stellenbosch'
 	};
+
+	// ==================== REG NUM OPERATIONS ==================== //
 
 	function setReg(regNumValue) {
 		console.log(regNumValue);
@@ -31,6 +36,16 @@ function RegistrationNumber() {
 		return regNum;
 	}
 
+	function getRegCode(regNumValue) {
+		return regNumValue.slice(0, 2);
+	}
+
+	function getRegTown(code) {
+		return regTownList[code];
+	}
+
+	// ==================== REG NUM VALIDATION ==================== //
+
 	function isValidReg(regNumValue) {
 		if (!/^[a-zA-Z]{2,3}( |)(\d{3,6}|(\d{1,5}(-| )\d{2,5}|\d{2,5}(-| )\d{1,5}))$/.test(regNumValue)) {
 			return false;
@@ -45,23 +60,17 @@ function RegistrationNumber() {
 		return true;
 	}
 
-	function getRegCode() {
-		return regNum.slice(0, 2);
-	}
-
-	function getRegTown(code) {
-		return regTownList[code];
-	}
+	// ==================== REG LIST OPERATIONS ==================== //
 
 	function addToRegList() {
 		if (regList[regNum] === undefined) {
-			regList[regNum] = getRegCode();
+			regList[regNum] = getRegCode(regNum);
 			regNum = '';
 			setMessage('Registration number added succesfully', 'green');
-			return (regList);
 		} else {
 			setMessage('Registration number already exists', 'orange');
 		}
+		return (regList);
 	}
 
 	function removeFromRegList(regNumValue) {
@@ -90,6 +99,8 @@ function RegistrationNumber() {
 		}
 	}
 
+	// ==================== MESSAGE OPERATIONS ==================== //
+
 	function setMessage(messageValue, color) {
 		if (messageValue !== '') {
 			message[messageValue] = color;
@@ -102,6 +113,38 @@ function RegistrationNumber() {
 
 		return displayMessage;
 	}
+
+	// ==================== EXTRA FUNCTIONALITY ==================== //
+
+	function autofillRegList(n) {
+		let generatedRegList = {};
+
+		while (Object.keys(generatedRegList).length < n) {
+			let validChars = 'AFGJKL';
+			let generatedRegNum = 'C';
+			let maxLength = Math.floor(Math.random() * 9);
+			generatedRegNum += validChars.charAt(Math.floor(Math.random() * validChars.length));
+			if (Math.floor(Math.random() * 3) > 1) {
+				generatedRegNum += ' ';
+				maxLength++;
+			}
+
+			while (generatedRegNum.length < maxLength) {
+				validChars = '-\ 0123456789';
+				generatedRegNum += validChars.charAt(Math.floor(Math.random() * validChars.length));
+			}
+
+			if (isValidReg(generatedRegNum) && isValidCode(generatedRegNum)) {
+				if (generatedRegList[generatedRegNum] === undefined) {
+					generatedRegList[generatedRegNum] = getRegCode(generatedRegNum);
+				}
+			}
+		}
+
+		regList = generatedRegList;
+	}
+
+	// ==================== END ==================== //
 
 	return {
 		setReg,
@@ -116,6 +159,7 @@ function RegistrationNumber() {
 		getRegList,
 		clearRegList,
 		setMessage,
-		getMessage
+		getMessage,
+		autofillRegList
 	};
 }

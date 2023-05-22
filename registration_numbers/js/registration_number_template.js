@@ -4,6 +4,7 @@
 	// ==================== INPUT ELEMENTS ==================== //
 	const input = yesTemplate.querySelector('.reg-input');
 	const button = yesTemplate.querySelector('.reg-button');
+	const random = yesTemplate.querySelector('.reg-random');
 	const clear = yesTemplate.querySelector('.reg-clear');
 	const select = yesTemplate.querySelector('.reg-filter');
 	let option = select.options[select.selectedIndex];
@@ -57,16 +58,17 @@
 		}
 	}
 
-	function showRegPlates(filter) {
+	function showRegPlates() {
+		option = select.options[select.selectedIndex];
+
 		clearRegPlates();
 
 		for (const regNum of Object.keys(yesTemplateReg.getRegList())) {
-			if (regNum.startsWith(filter) || filter === "") {
+			if (regNum.startsWith(option.value) || option.value === "") {
 				addRegPlate(regNum);
 			}
 		}
 
-		option = select.options[select.selectedIndex];
 		displayEmpty(option.value);
 	}
 
@@ -87,16 +89,13 @@
 			emptyText.innerHTML = 'No registration numbers for<br>' + yesTemplateReg.getRegTown(code) + ' (' + code + ')';
 			emptyBox.classList.remove('hidden');
 			regNumList.classList.add('hidden');
-			regNumList.style.resize = 'none';
 		} else if (!regNumList.firstElementChild && code === '') {
 			emptyText.innerHTML = 'No registration numbers';
 			emptyBox.classList.remove('hidden');
 			regNumList.classList.add('hidden');
-			regNumList.style.resize = 'none';
 		} else {
 			emptyBox.classList.add('hidden');
 			regNumList.classList.remove('hidden');
-			regNumList.style.resize = 'horizontal';
 		}
 	}
 
@@ -157,6 +156,27 @@
 		displayContainer.style.maxHeight = 'calc(100% - 449px)';
 	});
 
+	random.addEventListener('click', function () {
+		if (input.value !== '') {
+			if (!isNaN(input.value)) {
+				n = parseInt(input.value);
+				if (n < 1000) {
+					yesTemplateReg.autofillRegList(input.value);
+					console.log(yesTemplateReg.getRegList());
+					localStorage.setItem('yesTemplateRegList', JSON.stringify(yesTemplateReg.getRegList()));
+					showRegPlates();
+				} else {
+					yesTemplateReg.setMessage('Number must be less than 1000', 'red');
+				}
+			} else {
+				yesTemplateReg.setMessage('Input value is not a number', 'red');
+			}
+		} else {
+			yesTemplateReg.setMessage('Input number of RegNums to generate', 'orange');
+		}
+		displayMessage(yesTemplateReg.getMessage());
+	});
+
 	input.addEventListener('keydown', function (event) {
 		if (event.keyCode === 13) {
 			event.preventDefault();
@@ -175,8 +195,7 @@
 	});
 
 	select.addEventListener('change', function () {
-		option = select.options[select.selectedIndex];
-		showRegPlates(option.value);
+		showRegPlates();
 	});
 
 	select.addEventListener('wheel', function (event) {
@@ -186,9 +205,7 @@
 		if (index >= 0 && index < select.options.length) {
 			select.selectedIndex = index;
 		}
-
-		option = select.options[select.selectedIndex];
-		showRegPlates(option.value);
+		showRegPlates();
 	});
 
 	clear.addEventListener('click', function () {

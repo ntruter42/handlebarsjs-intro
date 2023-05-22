@@ -80,9 +80,18 @@ body {
 	caret-color: black;
 }
 
+.form-container label .reg-buttons {
+	display: flex;
+	justify-content: space-evenly;
+}
+
+/* .form-container label .reg-buttons button:first-of-type {
+	margin-right: 10px;
+} */
+
 .form-container label button {
 	padding: 0 10px;
-	margin: auto;
+	padding: auto;
 }
 
 /* ==================== HELP MESSAGE ==================== */
@@ -211,6 +220,16 @@ body {
 
 	.reg-num-container li:nth-child(even) .plate {
 		margin: 0 0 8px 8px;
+	}
+
+	.reg-no-template {
+		position: relative;
+		left: 5%;
+	}
+
+	.reg-yes-template {
+		position: relative;
+		right: 5%;
 	}
 }
 
