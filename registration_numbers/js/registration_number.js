@@ -18,7 +18,6 @@ function RegistrationNumber() {
 	// ==================== REG NUM OPERATIONS ==================== //
 
 	function setReg(regNumValue) {
-		console.log(regNumValue);
 		if (regNumValue === '') {
 			setMessage('Enter a registration number', 'red');
 		} else if (!isValidReg(regNumValue)) {

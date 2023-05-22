@@ -13,24 +13,24 @@ describe('RegistrationNumber', function () {
 			assert.equal(reg.getReg(), 'CA 123456');
 		});
 
-		it('should set and get the reg "CY 789-024"', function () {
-			reg.setReg('CY 789-024');
+		it('should set and get the reg "CL 789-024"', function () {
+			reg.setReg('CL 789-024');
 
-			assert.equal(reg.getReg(), 'CY 789-024');
+			assert.equal(reg.getReg(), 'CL 789-024');
 		});
 	});
 
 	describe('isValidReg', function () {
 		it('should return true for the reg "CA 123456"', function () {
-			reg.setReg('CA 123 456');
+			reg.setReg('CA 123456');
 
-			assert.equal(reg.isValidReg(), true);
+			assert.equal(reg.isValidReg(reg.getReg()), true);
 		});
 
 		it('should false for the reg "CJ 1234567"', function () {
 			reg.setReg('CA 1234567');
 
-			assert.equal(reg.isValidReg(), false);
+			assert.equal(reg.isValidReg(reg.getReg()), false);
 		});
 	});
 
@@ -38,13 +38,41 @@ describe('RegistrationNumber', function () {
 		it('should return true for the reg "CA 123456"', function () {
 			reg.setReg('CA 123 456');
 
-			assert.equal(reg.isValidReg(), true);
+			assert.equal(reg.isValidReg(reg.getReg()), true);
 		});
 
-		it('should false for the reg "CJ 1234567"', function () {
+		it('should return false for the reg "CJ 1234567"', function () {
 			reg.setReg('CJ 1234567');
 
-			assert.equal(reg.isValidReg(), false);
+			assert.equal(reg.isValidReg(reg.getReg()), false);
+		});
+	});
+
+	describe('getRegCode', function () {
+		it('should return "CA" for the reg "CA 123456"', function () {
+			reg.setReg('CA 123 456');
+
+			assert.equal(reg.getRegCode(reg.getReg()), 'CA');
+		});
+
+		it('should return "CK" for the reg "CK 123456"', function () {
+			reg.setReg('CK 123456');
+
+			assert.equal(reg.getRegCode(reg.getReg()), 'CK');
+		});
+	});
+
+	describe('getRegTown', function () {
+		it('should return "Cape Town" for the reg "CA 123456"', function () {
+			reg.setReg('CA 123 456');
+
+			assert.equal(reg.getRegTown(reg.getRegCode(reg.getReg())), 'Cape Town');
+		});
+
+		it('should return "Malmesbury" for the reg "CK 123456"', function () {
+			reg.setReg('CK 123456');
+
+			assert.equal(reg.getRegTown(reg.getRegCode(reg.getReg())), 'Malmesbury');
 		});
 	});
 

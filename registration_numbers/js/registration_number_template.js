@@ -44,7 +44,7 @@
 	}
 
 	function clearAllReg() {
-		localStorage.removeItem("yesTemplateRegList");
+		localStorage.removeItem('yesTemplateRegList');
 		clearRegPlates();
 		showRegPlates(option.value);
 		displayMessage(yesTemplateReg.getMessage());
@@ -75,7 +75,6 @@
 	function clearRegPlates() {
 		const regPlates = yesTemplate.querySelectorAll('li');
 
-		localStorage.removeItem("regList");
 		regPlates.forEach(plate => {
 			// TODO: remove only elements from filter location
 			plate.remove();
@@ -160,19 +159,18 @@
 		if (input.value !== '') {
 			if (!isNaN(input.value)) {
 				n = parseInt(input.value);
-				if (n < 1000) {
+				if (n < 500) {
 					yesTemplateReg.autofillRegList(input.value);
-					console.log(yesTemplateReg.getRegList());
 					localStorage.setItem('yesTemplateRegList', JSON.stringify(yesTemplateReg.getRegList()));
 					showRegPlates();
 				} else {
-					yesTemplateReg.setMessage('Number must be less than 1000', 'red');
+					yesTemplateReg.setMessage('Number must be less than 500', 'red');
 				}
 			} else {
 				yesTemplateReg.setMessage('Input value is not a number', 'red');
 			}
 		} else {
-			yesTemplateReg.setMessage('Input number of RegNums to generate', 'orange');
+			yesTemplateReg.setMessage('Input number of random<br>RegNums to generate', 'orange');
 		}
 		displayMessage(yesTemplateReg.getMessage());
 	});
